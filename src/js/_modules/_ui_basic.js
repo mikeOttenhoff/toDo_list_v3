@@ -29,7 +29,9 @@ export const ui_basic = function () {
   toDo_container.classList.add("toDo_container");
 
   // Temporary just to tweek ui
-  toDo_container.append(ui_toDo_element("Test"));
+  toDo_container.append(
+    ui_toDo_element("Test", "Lange tekst", "16 feb 1990", "high")
+  );
 
   const addToDoBtn = document.createElement("button");
   addToDoBtn.classList.add("addToDo_btn");

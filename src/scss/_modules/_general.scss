@@ -36,19 +36,8 @@ h1 {
   background-color: aqua;
 }
 
-.toDo_element.dragging {
-  opacity: 0.5;
-  background: #ddd;
-}
-
-.edit-btn {
-  width: 24px; /* size of the button */
-  height: 24px;
-  background-size: contain; /* fit the SVG */
-  background-repeat: no-repeat;
-  background-position: center;
-  border: none; /* optional */
-  background-color: transparent; /* optional, keeps it clean */
+.toDo_edit_btn_img {
+  width: 1rem;
   cursor: pointer;
   filter: invert(1) sepia(1) saturate(5) hue-rotate(180deg);
 }

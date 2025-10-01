@@ -18,7 +18,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html", // your HTML template
-      title: "ToDo list, v2", // optional, overrides <title>
+      title: "ToDo list, v3", // optional, overrides <title>
     }),
   ],
   output: {
