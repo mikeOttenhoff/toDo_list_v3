@@ -1,0 +1,54 @@
+@use "variables.scss" as *;
+
+body {
+  background-color: #fff;
+  position: relative;
+}
+
+.container {
+  position: relative;
+  padding: 1rem;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: auto-fit 1fr;
+  justify-content: center;
+}
+
+h1 {
+  grid-column: 1/ -1;
+  text-align: center;
+  align-self: center;
+  font-size: 8rem;
+}
+
+.toDo_container {
+  position: relative;
+  grid-column: 2/-1;
+  padding: 0 1rem;
+  background-color: green;
+}
+
+.toDo_project_container {
+  min-height: 4rem;
+  padding: 1rem;
+  margin: 1rem;
+  background-color: aqua;
+}
+
+.toDo_element.dragging {
+  opacity: 0.5;
+  background: #ddd;
+}
+
+.edit-btn {
+  width: 24px; /* size of the button */
+  height: 24px;
+  background-size: contain; /* fit the SVG */
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none; /* optional */
+  background-color: transparent; /* optional, keeps it clean */
+  cursor: pointer;
+  filter: invert(1) sepia(1) saturate(5) hue-rotate(180deg);
+}
