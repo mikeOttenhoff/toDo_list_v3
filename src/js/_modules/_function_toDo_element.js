@@ -1,5 +1,6 @@
 import { ui_input } from "./_ui_input";
 import { ui_toDo_element } from "./_ui_toDo_element.js";
+import { toDo_database, addToDo } from "./_database.js";
 
 export const function_toDoElement = function () {
   const { toDo_input, sendBtn, chooseProject } = ui_input();
@@ -22,9 +23,17 @@ export const function_toDoElement = function () {
     const dueDate = element.elements[2].value;
     const priority = element.elements[3].value;
 
+    const todo = { title, description, dueDate, priority };
+
+    const projectName = chooseProject.value || "default";
+    addToDo(projectName, todo);
+
     toDo_container.append(
       ui_toDo_element(title, description, dueDate, priority)
     );
+
+    console.log(toDo_database);
+
     toDo_input.remove();
   });
 };
