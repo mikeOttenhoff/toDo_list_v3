@@ -1,3 +1,5 @@
+import { toDo_database } from "./_database.js";
+
 export const ui_input = function () {
   const toDo_input = document.createElement("form");
   toDo_input.classList.add("toDo_input");
@@ -28,6 +30,20 @@ export const ui_input = function () {
   chooseProject.classList.add("chooseProject");
   chooseProject.name = "Project";
 
+  // Function to populate dropdown from current database
+  const populateProjects = () => {
+    chooseProject.innerHTML = ""; // clear previous options
+    Object.keys(toDo_database.projects).forEach(projectName => {
+      const option = document.createElement("option");
+      option.value = projectName;
+      option.textContent = projectName;
+      chooseProject.appendChild(option);
+    });
+  };
+
+  // Always populate when form is created
+  populateProjects();
+
   // buttons
   const sendBtn = document.createElement("button");
   sendBtn.classList.add("send_btn");
@@ -49,5 +65,7 @@ export const ui_input = function () {
     sendBtn,
     cancelBtn
   );
-  return { toDo_input, sendBtn, chooseProject };
+  return { toDo_input, sendBtn, chooseProject, populateProjects };
 };
+
+// export { chooseProject };

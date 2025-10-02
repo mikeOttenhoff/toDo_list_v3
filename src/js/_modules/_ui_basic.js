@@ -1,4 +1,5 @@
 import { ui_toDo_element } from "./_ui_toDo_element.js";
+import { renderToDos } from "./_function_toDo_renderElements.js";
 
 export const ui_basic = function () {
   const container = document.createElement("div");
@@ -28,10 +29,27 @@ export const ui_basic = function () {
   const toDo_container = document.createElement("div");
   toDo_container.classList.add("toDo_container");
 
-  // Temporary just to tweek ui
-  toDo_container.append(
-    ui_toDo_element("Test", "Lange tekst", "16 feb 1990", "high")
-  );
+  const sortSelect = document.createElement("select");
+
+  ["alphabetical", "latest"].forEach(mode => {
+    const option = document.createElement("option");
+    option.value = mode;
+    option.textContent = mode === "alphabetical" ? "Alphabetical" : "Latest";
+    sortSelect.appendChild(option);
+  });
+
+  sortSelect.value = "alphabetical";
+
+  sortSelect.addEventListener("change", e => {
+    renderToDos(toDo_container, e.target.value);
+  });
+
+  container.append(sortSelect);
+
+  // // Temporary just to tweek ui
+  // toDo_container.append(
+  //   ui_toDo_element("Test", "Lange tekst", "16 feb 1990", "high")
+  // );
 
   const addToDoBtn = document.createElement("button");
   addToDoBtn.classList.add("addToDo_btn");

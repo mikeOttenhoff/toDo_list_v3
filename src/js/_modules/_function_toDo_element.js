@@ -1,39 +1,41 @@
 import { ui_input } from "./_ui_input";
-import { ui_toDo_element } from "./_ui_toDo_element.js";
 import { toDo_database, addToDo } from "./_database.js";
+import { renderToDos } from "./_function_toDo_renderElements.js";
 
 export const function_toDoElement = function () {
-  const { toDo_input, sendBtn, chooseProject } = ui_input();
   const toDo_container = document.querySelector(".toDo_container");
   const addToDo_btn = document.querySelector(".addToDo_btn");
-  const send_btn = document.querySelector(".send_btn");
 
   //Add the input context to the toDo container
   addToDo_btn.addEventListener("click", function () {
+    const { toDo_input, sendBtn, chooseProject } = ui_input();
+
+    Object.keys(toDo_database.projects).forEach(projectName => {
+      if (![...chooseProject.options].some(o => o.value === projectName)) {
+        const option = document.createElement("option");
+        option.value = projectName;
+        option.textContent = projectName;
+        chooseProject.appendChild(option);
+      }
+    });
+
     toDo_container.append(toDo_input);
-  });
 
-  sendBtn.addEventListener("click", function (e) {
-    e.preventDefault();
-    const element = e.target.parentNode;
-    // console.log(element);
+    sendBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      const form = e.target.parentNode;
 
-    const title = element.elements[0].value;
-    const description = element.elements[1].value;
-    const dueDate = element.elements[2].value;
-    const priority = element.elements[3].value;
+      const title = form.elements["Title"].value;
+      const description = form.elements["Description"].value;
+      const dueDate = form.elements["date"].value;
+      const priority = form.elements["Priority"].value;
+      const project = chooseProject.value || "default";
 
-    const todo = { title, description, dueDate, priority };
+      addToDo(project, { title, description, dueDate, priority });
 
-    const projectName = chooseProject.value || "default";
-    addToDo(projectName, todo);
+      renderToDos(toDo_container);
 
-    toDo_container.append(
-      ui_toDo_element(title, description, dueDate, priority)
-    );
-
-    console.log(toDo_database);
-
-    toDo_input.remove();
+      toDo_input.remove();
+    });
   });
 };

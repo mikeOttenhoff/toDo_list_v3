@@ -11,5 +11,7 @@ export function addToDo(projectName, todo) {
   if (!toDo_database.projects[projectName]) {
     toDo_database.projects[projectName] = { todos: [] };
   }
-  toDo_database.projects[projectName].todos.push(todo);
+  if (todo) {
+    toDo_database.projects[projectName].todos.push(todo);
+  }
 }
