@@ -12,8 +12,21 @@ export const ui_toDo_element = function (
   const todo_element = document.createElement("div");
   todo_element.classList.add("toDo_element");
 
+  const toDo_title_arrow = document.createElement("span");
+  toDo_title_arrow.classList.add("toDo_title_arrow");
+  toDo_title_arrow.textContent = ">";
+
   const toDo_title = document.createElement("h3");
+  toDo_title.classList.add("toDo_title");
   toDo_title.textContent = title;
+  toDo_title.style.cursor = "pointer";
+
+  const toDo_title_container = document.createElement("div");
+  toDo_title_container.classList.add("toDo_title_container");
+  toDo_title_container.append(toDo_title_arrow, toDo_title);
+
+  const contentContainer = document.createElement("div");
+  contentContainer.classList.add("todo_content", "hideContent");
 
   const toDo_description = document.createElement("p");
   toDo_description.textContent = description;
@@ -54,14 +67,20 @@ export const ui_toDo_element = function (
     }
   });
 
-  todo_element.append(
-    toDo_title,
+  contentContainer.append(
     toDo_description,
     toDo_dueDate,
     toDo_priority,
     toDo_edit_btn,
     cancelBtn
   );
+
+  todo_element.append(toDo_title_container, contentContainer);
+
+  toDo_title_container.addEventListener("click", function () {
+    contentContainer.classList.toggle("hideContent");
+    toDo_title_arrow.classList.toggle("expanded");
+  });
 
   return todo_element;
 };

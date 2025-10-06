@@ -10,6 +10,20 @@ export const toDo_sort = function (projects, mode = "alphabetical") {
     otherProjects.sort(
       ([, aData], [, bData]) => (bData.createdAt || 0) - (aData.createdAt || 0)
     );
+  } else if (mode === "DueDate") {
+    otherProjects.sort(([, aData], [, bData]) => {
+      const aEarliest = Math.min(
+        ...(aData.todos?.map(todo => new Date(todo.dueDate).getTime()) || [
+          Infinity,
+        ])
+      );
+      const bEarliest = Math.min(
+        ...(bData.todos?.map(todo => new Date(todo.dueDate).getTime()) || [
+          Infinity,
+        ])
+      );
+      return aEarliest - bEarliest;
+    });
   }
 
   // --- Sort todos inside each project ---
@@ -19,6 +33,12 @@ export const toDo_sort = function (projects, mode = "alphabetical") {
       todos.sort((a, b) => a.title.localeCompare(b.title));
     } else if (mode === "latest") {
       todos.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+    } else if (mode === "DueDate") {
+      todos.sort(
+        (a, b) =>
+          (new Date(a.dueDate).getTime() || 0) -
+          (new Date(b.dueDate).getTime() || 0)
+      );
     }
   };
 

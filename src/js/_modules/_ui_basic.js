@@ -40,10 +40,12 @@ export const ui_basic = function () {
   const sortSelect = document.createElement("select");
   sortSelect.classList.add("sortToggle");
 
-  ["alphabetical", "latest"].forEach(mode => {
+  ["alphabetical", "latest", "dueDate"].forEach(mode => {
     const option = document.createElement("option");
     option.value = mode;
-    option.textContent = mode === "alphabetical" ? "Alphabetical" : "Latest";
+    if (mode === "alphabetical") option.textContent = "Alphabetical";
+    else if (mode === "latest") option.textContent = "Latest";
+    else if (mode === "dueDate") option.textContent = "Due Date";
     sortSelect.appendChild(option);
   });
 
@@ -52,13 +54,6 @@ export const ui_basic = function () {
   sortSelect.addEventListener("change", e => {
     renderToDos(toDo_container, e.target.value);
   });
-
-  // container.append(sortSelect);
-
-  // // Temporary just to tweek ui
-  // toDo_container.append(
-  //   ui_toDo_element("Test", "Lange tekst", "16 feb 1990", "high")
-  // );
 
   const addToDoBtn = document.createElement("button");
   addToDoBtn.classList.add("addToDo_btn");
