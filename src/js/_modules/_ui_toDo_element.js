@@ -1,9 +1,13 @@
 import editBtn from "../../img/edit.svg";
+import { toDo_database, saveToLocalStorage } from "./_database.js";
+
 export const ui_toDo_element = function (
   title,
   description,
   dueDate,
-  priority
+  priority,
+  projectName,
+  createdAt
 ) {
   const todo_element = document.createElement("div");
   todo_element.classList.add("toDo_element");
@@ -25,14 +29,30 @@ export const ui_toDo_element = function (
   toDo_edit_btn_img.classList.add("toDo_edit_btn_img");
   toDo_edit_btn_img.src = editBtn;
 
+  // TODO: Hook your edit logic here
+  toDo_edit_btn.addEventListener("click", () => {
+    console.log("Edit clicked for:", title);
+  });
+
+  toDo_edit_btn.append(toDo_edit_btn_img);
+
   const cancelBtn = document.createElement("button");
   cancelBtn.classList.add("cancel_btn");
   cancelBtn.textContent = "X";
   cancelBtn.type = "button";
   cancelBtn.addEventListener("click", function () {
     todo_element.remove();
+    if (
+      projectName &&
+      toDo_database.projects[projectName] &&
+      createdAt !== undefined
+    ) {
+      toDo_database.projects[projectName].todos = toDo_database.projects[
+        projectName
+      ].todos.filter(todo => todo.createdAt !== createdAt);
+      saveToLocalStorage(); // if using localStorage
+    }
   });
-  toDo_edit_btn.append(toDo_edit_btn_img);
 
   todo_element.append(
     toDo_title,

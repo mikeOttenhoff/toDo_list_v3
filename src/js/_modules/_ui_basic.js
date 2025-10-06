@@ -15,6 +15,9 @@ export const ui_basic = function () {
   const sidebar_projects = document.createElement("div");
   sidebar_projects.classList.add("sidebar_projects");
 
+  const sidebar_projects_header = document.createElement("div");
+  sidebar_projects_header.classList.add("sidebar_projects_header");
+
   const sidebar_projects_title = document.createElement("h2");
   sidebar_projects_title.textContent = "Projects";
 
@@ -22,7 +25,12 @@ export const ui_basic = function () {
   addProjectBtn.classList.add("addProject_btn");
   addProjectBtn.textContent = "+";
 
-  sidebar_projects.append(sidebar_projects_title, addProjectBtn);
+  sidebar_projects_header.append(sidebar_projects_title, addProjectBtn);
+
+  const sidebar_projects_list = document.createElement("div");
+  sidebar_projects_list.classList.add("sidebar_projects_list");
+
+  sidebar_projects.append(sidebar_projects_header, sidebar_projects_list);
   sidebar.append(sidebar_projects);
 
   // Todo container
@@ -30,6 +38,7 @@ export const ui_basic = function () {
   toDo_container.classList.add("toDo_container");
 
   const sortSelect = document.createElement("select");
+  sortSelect.classList.add("sortToggle");
 
   ["alphabetical", "latest"].forEach(mode => {
     const option = document.createElement("option");
@@ -44,7 +53,7 @@ export const ui_basic = function () {
     renderToDos(toDo_container, e.target.value);
   });
 
-  container.append(sortSelect);
+  // container.append(sortSelect);
 
   // // Temporary just to tweek ui
   // toDo_container.append(
@@ -56,13 +65,14 @@ export const ui_basic = function () {
   addToDoBtn.textContent = "+";
   addToDoBtn.type = "button";
 
-  container.append(mainTitle, sidebar, toDo_container, addToDoBtn);
+  container.append(mainTitle, sidebar, sortSelect, toDo_container, addToDoBtn);
   document.body.append(container);
 
   return {
     container,
     sidebar,
     sidebar_projects,
+    sidebar_projects_list,
     addProjectBtn,
     toDo_container,
     addToDoBtn,

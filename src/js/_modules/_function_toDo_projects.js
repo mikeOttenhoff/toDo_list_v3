@@ -1,57 +1,75 @@
-import { ui_input, chooseProject } from "./_ui_input";
-import { toDo_database, addToDo } from "./_database.js";
-import { renderToDos } from "./_function_toDo_renderElements.js";
+import {
+  addProject,
+  removeProject,
+  toDo_database,
+  saveToLocalStorage,
+} from "./_database.js";
+import {
+  renderToDos,
+  renderSidebarProjects,
+} from "./_function_toDo_renderElements.js";
+import { ui_input } from "./_ui_input.js";
 
-export const function_projects = function () {
-  const { toDo_input, sendBtn, chooseProject } = ui_input();
-  const addProject_btn = document.querySelector(".addProject_btn");
-  const sidebar_projects = document.querySelector(".sidebar_projects");
-  const toDo_container = document.querySelector(".toDo_container");
+export const function_projects = function ({
+  addProjectBtn,
+  sidebar_projects_list,
+  toDo_container,
+  chooseProject,
+}) {
+  if (!addProjectBtn || !sidebar_projects_list || !toDo_container) {
+    console.error("Missing DOM elements for projects module!");
+    return;
+  }
 
-  addProject_btn.addEventListener("click", function () {
+  // Add new project
+  addProjectBtn.addEventListener("click", () => {
+    const {
+      toDo_input,
+      sendBtn,
+      chooseProject: inputChooseProject,
+    } = ui_input();
+
     const project_input_container = document.createElement("div");
     project_input_container.classList.add("project_input_container");
 
     const project_input = document.createElement("input");
     project_input.placeholder = "Enter project name";
 
-    // buttons
     const project_sendBtn = document.createElement("button");
-    project_sendBtn.textContent = "Send";
     project_sendBtn.type = "submit";
+    project_sendBtn.textContent = "Send";
 
     project_input_container.append(project_input, project_sendBtn);
-    sidebar_projects.append(project_input_container);
+    sidebar_projects_list.append(project_input_container); // ✅ append to list
 
-    project_sendBtn.addEventListener("click", function () {
+    project_sendBtn.addEventListener("click", e => {
+      e.preventDefault();
       const projectName = project_input.value.trim();
       if (!projectName) return;
 
-      // Add project to database
-      if (!toDo_database.projects[projectName]) {
-        toDo_database.projects[projectName] = { todos: [] };
-      }
+      // Add to database
+      addProject(projectName);
+      saveToLocalStorage();
 
-      //adding title to sidebar
-      const project_title = document.createElement("h3");
-      project_title.textContent = projectName;
-      sidebar_projects.append(project_title);
+      // Update sidebar and dropdowns
+      renderSidebarProjects(sidebar_projects_list, toDo_container); // ✅ pass references
+      updateDropdowns(projectName);
 
-      // Update all open forms dropdowns
-      document.querySelectorAll(".chooseProject").forEach(select => {
-        const optionExists = [...select.options].some(
-          o => o.value === projectName
-        );
-        if (!optionExists) {
+      project_input_container.remove();
+      renderToDos(toDo_container);
+    });
+
+    function updateDropdowns(projectName) {
+      [chooseProject, inputChooseProject].forEach(select => {
+        if (!select) return;
+        const exists = [...select.options].some(o => o.value === projectName);
+        if (!exists) {
           const option = document.createElement("option");
           option.value = projectName;
           option.textContent = projectName;
           select.appendChild(option);
         }
       });
-      console.log(toDo_database);
-
-      project_input_container.remove();
-    });
+    }
   });
 };
