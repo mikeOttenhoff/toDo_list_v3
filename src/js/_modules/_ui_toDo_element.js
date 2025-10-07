@@ -1,5 +1,6 @@
 import editBtn from "../../img/edit.svg";
 import { toDo_database, saveToLocalStorage } from "./_database.js";
+import { openEditTodo } from "./_function_toDo_edit.js";
 
 export const ui_toDo_element = function (
   title,
@@ -42,12 +43,24 @@ export const ui_toDo_element = function (
   toDo_edit_btn_img.classList.add("toDo_edit_btn_img");
   toDo_edit_btn_img.src = editBtn;
 
-  // TODO: Hook your edit logic here
-  toDo_edit_btn.addEventListener("click", () => {
-    console.log("Edit clicked for:", title);
-  });
-
   toDo_edit_btn.append(toDo_edit_btn_img);
+
+  toDo_edit_btn.addEventListener("click", () => {
+    openEditTodo({
+      title,
+      description,
+      dueDate,
+      priority,
+      projectName,
+      createdAt,
+      elements: {
+        toDo_title,
+        toDo_description,
+        toDo_dueDate,
+        toDo_priority,
+      },
+    });
+  });
 
   const cancelBtn = document.createElement("button");
   cancelBtn.classList.add("cancel_btn");

@@ -4,8 +4,10 @@
   flex-direction: column;
   align-items: start;
   justify-content: center;
+  padding: 1rem;
   cursor: pointer;
-  gap: 0.5rem;
+
+  background-color: $Mode-1_3-rgba;
   transition: all 200ms ease;
   .toDo_title {
     display: flex;
