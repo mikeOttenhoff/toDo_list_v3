@@ -18,8 +18,10 @@ export const function_toDoElement = function () {
         chooseProject.appendChild(option);
       }
     });
+    const toDo_overlay = document.createElement("div");
+    toDo_overlay.classList.add("toDo_overlay");
 
-    toDo_container.append(toDo_input);
+    toDo_container.append(toDo_overlay, toDo_input);
 
     sendBtn.addEventListener("click", function (e) {
       e.preventDefault();
@@ -36,6 +38,7 @@ export const function_toDoElement = function () {
       renderToDos(toDo_container);
 
       toDo_input.remove();
+      toDo_overlay.remove();
     });
   });
 };

@@ -1,0 +1,96 @@
+@use "variables.scss" as *;
+.toDo_element {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  cursor: pointer;
+  gap: 0.5rem;
+  transition: all 200ms ease;
+  .toDo_title {
+    display: flex;
+    align-items: center;
+    &_arrow {
+      font-weight: 900;
+    }
+  }
+  .todo_content.hideContent {
+    display: none;
+    transform: translate(-2rem);
+  }
+  .todo_content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-left: 3rem;
+    margin-top: -0.7rem;
+    transform: translate(0rem);
+    p {
+      grid-column: 1/-1;
+    }
+  }
+  .toDo_title_container {
+    display: flex;
+    .toDo_title_arrow {
+      display: inline-block;
+      transition: transform 0.2s ease;
+      margin-right: 1rem;
+      &.expanded {
+        transform: rotate(90deg);
+      }
+    }
+    .toDo_title {
+      font-size: 2rem;
+    }
+  }
+  .toDo_edit_btn_img {
+    width: 1.5rem;
+    cursor: pointer;
+    filter: invert(1) sepia(1) saturate(5) hue-rotate(180deg);
+  }
+}
+
+.toDo_input {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  width: 50vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  overflow: visible;
+  &::before {
+    content: "";
+  }
+  input,
+  textarea {
+    grid-column: 1/-1;
+  }
+  .send_btn {
+    background-color: $Mode-6-rgba;
+    color: $Mode-1-rgba;
+    text-transform: uppercase;
+    font-weight: 900;
+    text-align: center;
+    padding: 1rem;
+    justify-self: start;
+  }
+  .cancel_btn {
+    position: fixed;
+    right: -3rem;
+    top: -3rem;
+    font-size: 2em;
+    font-weight: 900;
+    color: $Mode-1-rgba;
+  }
+}
+
+.toDo_overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed; // or absolute, depending on your layout
+  inset: 0;
+  z-index: 50;
+}

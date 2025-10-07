@@ -1,0 +1,38 @@
+@use "variables.scss" as *;
+
+.sidebar {
+  padding: 1rem;
+  background-color: $Mode-2-rgba;
+  &_projects {
+    &_header {
+      display: grid;
+      align-items: center;
+      grid-template-columns: 1fr 3rem;
+      margin-bottom: 1rem;
+      h2 {
+        justify-self: start;
+        align-self: center;
+      }
+      .addProject_btn {
+        justify-self: end;
+        align-self: center;
+        font-size: 2.5rem;
+        font-weight: 900;
+        transition: all 200ms ease;
+        cursor: pointer;
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+    }
+    &_list {
+      display: flex;
+      flex-direction: column;
+      &_element {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+    }
+  }
+}

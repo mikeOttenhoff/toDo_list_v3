@@ -84,7 +84,7 @@ a {
 
 /* Color Theme Swatches in RGBA */
 body {
-  background-color: #fff;
+  background-color: rgb(241, 242, 239);
   position: relative;
 }
 
@@ -93,9 +93,9 @@ body {
   padding: 1rem;
   width: 100vw;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: auto-fit 1fr;
+  grid-template-columns: repeat(6, 1fr);
   justify-content: center;
+  align-items: start;
 }
 
 h1 {
@@ -105,24 +105,53 @@ h1 {
   font-size: 8rem;
 }
 
-.toDo_container {
+.sort_todo_container {
   position: relative;
   grid-column: 2/-1;
   padding: 0 1rem;
-  background-color: green;
+  background-color: rgb(220, 220, 220);
+  display: grid;
 }
-
-.toDo_project_container {
+.sort_todo_container .sortToggle {
+  grid-column: 1/-1;
+  width: 20%;
+  height: 3rem;
+}
+.sort_todo_container .toDo_container {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.sort_todo_container .toDo_container .toDo_project_container {
   min-height: 4rem;
   padding: 1rem;
   margin: 1rem;
-  background-color: aqua;
+  background-color: rgb(200, 200, 200);
+}
+.sort_todo_container .toDo_container .toDo_project_container_title {
+  font-size: 3rem;
+  font-weight: 300;
 }
 
-.toDo_edit_btn_img {
-  width: 1rem;
-  cursor: pointer;
-  filter: invert(1) sepia(1) saturate(5) hue-rotate(180deg);
+.addToDo_btn {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  padding: 2rem;
+  background-color: rgb(174, 42, 46);
+  font-size: 4rem;
+  font-weight: 900;
+  color: rgb(241, 242, 239);
+  transition: all 0.2s ease;
+}
+.addToDo_btn:hover {
+  transform: scale(1.2);
+  border-radius: 0.5rem;
 }
 
 .toDo_element {
@@ -132,19 +161,28 @@ h1 {
   justify-content: center;
   cursor: pointer;
   gap: 0.5rem;
+  transition: all 200ms ease;
 }
 .toDo_element .toDo_title {
   display: flex;
   align-items: center;
 }
+.toDo_element .toDo_title_arrow {
+  font-weight: 900;
+}
 .toDo_element .todo_content.hideContent {
   display: none;
+  transform: translate(-2rem);
 }
 .toDo_element .todo_content {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   margin-left: 3rem;
   margin-top: -0.7rem;
+  transform: translate(0rem);
+}
+.toDo_element .todo_content p {
+  grid-column: 1/-1;
 }
 .toDo_element .toDo_title_container {
   display: flex;
@@ -156,4 +194,93 @@ h1 {
 }
 .toDo_element .toDo_title_container .toDo_title_arrow.expanded {
   transform: rotate(90deg);
+}
+.toDo_element .toDo_title_container .toDo_title {
+  font-size: 2rem;
+}
+.toDo_element .toDo_edit_btn_img {
+  width: 1.5rem;
+  cursor: pointer;
+  filter: invert(1) sepia(1) saturate(5) hue-rotate(180deg);
+}
+
+.toDo_input {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  width: 50vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  overflow: visible;
+}
+.toDo_input::before {
+  content: "";
+}
+.toDo_input input,
+.toDo_input textarea {
+  grid-column: 1/-1;
+}
+.toDo_input .send_btn {
+  background-color: rgb(174, 42, 46);
+  color: rgb(241, 242, 239);
+  text-transform: uppercase;
+  font-weight: 900;
+  text-align: center;
+  padding: 1rem;
+  justify-self: start;
+}
+.toDo_input .cancel_btn {
+  position: fixed;
+  right: -3rem;
+  top: -3rem;
+  font-size: 2em;
+  font-weight: 900;
+  color: rgb(241, 242, 239);
+}
+
+.toDo_overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+}
+
+.sidebar {
+  padding: 1rem;
+  background-color: rgb(213, 216, 114);
+}
+.sidebar_projects_header {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 3rem;
+  margin-bottom: 1rem;
+}
+.sidebar_projects_header h2 {
+  justify-self: start;
+  align-self: center;
+}
+.sidebar_projects_header .addProject_btn {
+  justify-self: end;
+  align-self: center;
+  font-size: 2.5rem;
+  font-weight: 900;
+  transition: all 200ms ease;
+  cursor: pointer;
+}
+.sidebar_projects_header .addProject_btn:hover {
+  transform: scale(1.2);
+}
+.sidebar_projects_list {
+  display: flex;
+  flex-direction: column;
+}
+.sidebar_projects_list_element {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }

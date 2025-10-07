@@ -13,6 +13,7 @@ export function renderToDos(container, sortMode = "alphabetical") {
 
     if (projectName !== "default") {
       const title = document.createElement("h3");
+      title.classList.add("toDo_project_container_title");
       title.textContent = projectName;
       toDo_project_container.appendChild(title);
     }
@@ -40,6 +41,7 @@ export function renderSidebarProjects(sidebar_projects_list, toDo_container) {
     if (projectName === "default") return;
 
     const projectDiv = document.createElement("div");
+    projectDiv.classList.add("sidebar_projects_list_element");
     const title = document.createElement("h3");
     title.textContent = projectName;
 

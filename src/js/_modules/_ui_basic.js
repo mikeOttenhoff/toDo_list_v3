@@ -60,7 +60,11 @@ export const ui_basic = function () {
   addToDoBtn.textContent = "+";
   addToDoBtn.type = "button";
 
-  container.append(mainTitle, sidebar, sortSelect, toDo_container, addToDoBtn);
+  const sort_todo_container = document.createElement("div");
+  sort_todo_container.classList.add("sort_todo_container");
+
+  sort_todo_container.append(sortSelect, toDo_container);
+  container.append(mainTitle, sidebar, sort_todo_container, addToDoBtn);
   document.body.append(container);
 
   return {

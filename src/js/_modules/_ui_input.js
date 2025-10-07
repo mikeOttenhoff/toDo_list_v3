@@ -54,7 +54,11 @@ export const ui_input = function () {
   cancelBtn.classList.add("cancel_btn");
   cancelBtn.textContent = "X";
   cancelBtn.type = "button";
-  cancelBtn.addEventListener("click", () => toDo_input.remove());
+  cancelBtn.addEventListener("click", function () {
+    const toDo_overlay = document.querySelector(".toDo_overlay");
+    toDo_input.remove();
+    toDo_overlay.remove();
+  });
 
   toDo_input.append(
     titleInput,
