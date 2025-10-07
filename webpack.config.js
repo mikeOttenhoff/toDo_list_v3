@@ -25,6 +25,7 @@ module.exports = {
     filename: "main.js",
     path: path.resolve(__dirname, "dist"),
     clean: true, // clean dist before each build
+    publicPath: "/todo_list_v3/",
   },
   module: {
     rules: [
